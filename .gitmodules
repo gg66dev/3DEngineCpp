@@ -4,3 +4,6 @@
 [submodule "lib/glew"]
 	path = lib/glew
 	url = git@github.com:nigels-com/glew.git
+[submodule "lib/assimp"]
+	path = lib/assimp
+	url = git@github.com:assimp/assimp.git
