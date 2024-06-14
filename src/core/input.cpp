@@ -18,7 +18,7 @@
 
 #include "../rendering/window.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <cstring>
 
 Input::Input(Window* window) :

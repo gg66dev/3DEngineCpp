@@ -18,17 +18,17 @@
 ################
 # Huge thanks to mxaddict for setting up the CMake build system!
 
-# we need features that are 2.6 >= dependent
-cmake_minimum_required(VERSION 2.6)
+# we need features that are 3.0 >= dependent
+cmake_minimum_required(VERSION 3.0)
 
 # lets name the project
 project(3DEngineCpp)
 
 # add the -c and -Wall flags
-add_definitions(
-	-c
-	-Wall
-)
+#add_definitions(
+#	-c
+#	-Wall
+#)
 
 if ( CMAKE_BUILD_TYPE STREQUAL "" )
 	# CMake defaults to leaving CMAKE_BUILD_TYPE empty. This screws up
@@ -42,9 +42,9 @@ if ( CMAKE_BUILD_TYPE STREQUAL "" )
 	)
 endif ( CMAKE_BUILD_TYPE STREQUAL "" )
 
-if ( CMAKE_BUILD_TYPE STREQUAL "Release" )
-add_definitions( -O2 )
-endif ( CMAKE_BUILD_TYPE STREQUAL "Release" )
+#if ( CMAKE_BUILD_TYPE STREQUAL "Release" )
+    #add_definitions( -O2 )
+    #endif ( CMAKE_BUILD_TYPE STREQUAL "Release" )
 
 # Lets LOAD app our headers!
 file(GLOB_RECURSE HDRS ${3DEngineCpp_SOURCE_DIR}/src/*.h)
@@ -55,11 +55,6 @@ file(GLOB_RECURSE SRCS
 	${3DEngineCpp_SOURCE_DIR}/src/*.c
 )
 
-# Define the executable
-add_executable(3DEngineCpp ${HDRS} ${SRCS})
-
-# We need a CMAKE_DIR with some code to find external dependencies
-SET(3DEngineCpp_CMAKE_DIR "${3DEngineCpp_SOURCE_DIR}/cmake")
 
 #######################################
 # LOOK for the packages that we need! #
@@ -67,31 +62,29 @@ SET(3DEngineCpp_CMAKE_DIR "${3DEngineCpp_SOURCE_DIR}/cmake")
 
 # OpenGL
 find_package(OpenGL REQUIRED)
+include_directories(${OPENGL_INCLUDE_DIRS})
 
 # GLEW
-INCLUDE(${3DEngineCpp_CMAKE_DIR}/FindGLEW.cmake)
+add_subdirectory(lib/glew-cmake)
+include_directories(BEFORE SYSTEM lib/glew-cmake/include)
 
 # SDL2
-INCLUDE(${3DEngineCpp_CMAKE_DIR}/FindSDL2.cmake)
+add_subdirectory(lib/SDL)
+include_directories(BEFORE SYSTEM lib/SDL/include)
 
 # ASSIMP
-INCLUDE(${3DEngineCpp_CMAKE_DIR}/FindASSIMP.cmake)
+add_subdirectory(lib/assimp)
+include_directories(BEFORE SYSTEM lib/assimp/include)
 
-# Define the include DIRs
-include_directories(
-	${3DEngineCpp_SOURCE_DIR}/headers
-	${3DEngineCpp_SOURCE_DIR}/sources
-	${OPENGL_INCLUDE_DIRS}
-	${GLEW_INCLUDE_DIRS}
-	${SDL2_INCLUDE_DIRS}
-	${ASSIMP_INCLUDE_DIRS}
-)
+# Define the executable
+add_executable(3DEngineCpp ${HDRS} ${SRCS})
 
 # Define the link libraries
 target_link_libraries( 3DEngineCpp
-	${OPENGL_LIBRARIES}
-	${GLEW_LIBRARIES}
-	${SDL2_LIBRARIES}
-	${ASSIMP_LIBRARIES}
+    PRIVATE
+    ${OPENGL_LIBRARIES}
+	libglew_static
+    SDL2-static
+	assimp
 )
 

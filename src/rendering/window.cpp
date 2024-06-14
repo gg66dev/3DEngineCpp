@@ -16,7 +16,7 @@
 
 #include "window.h"
 #include "../core/profiling.h"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <GL/glew.h>
 
 Window::Window(int width, int height, const std::string& title) :

@@ -17,7 +17,7 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <string>
 #include "../core/input.h"
 

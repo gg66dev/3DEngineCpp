@@ -1,9 +1,9 @@
 [submodule "lib/SDL"]
 	path = lib/SDL
 	url = git@github.com:libsdl-org/SDL.git
-[submodule "lib/glew"]
-	path = lib/glew
-	url = git@github.com:nigels-com/glew.git
 [submodule "lib/assimp"]
 	path = lib/assimp
 	url = git@github.com:assimp/assimp.git
+[submodule "lib/glew-cmake"]
+	path = lib/glew-cmake
+	url = git@github.com:Perlmint/glew-cmake.git
