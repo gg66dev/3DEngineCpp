@@ -13,6 +13,12 @@ It's like the 3D Game Engine, except in C++
 ## clone repo with submodules
 
 ```
+ git clone --recurse-submodules -j8 git@github.com:gg66dev/3DEngineCpp.git
+```
+
+or
+
+```
 git clone git@github.com:gg66dev/3DEngineCpp.git 
 git submodule update --init --recursive
 ```
